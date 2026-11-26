@@ -1,5 +1,7 @@
 # POTIFY Shortcut Assistant — developer edition
 
+[Full repository tree](docs/DIRECTORY.md) · [Technical whitepaper](docs/WHITEPAPER.md) · [Developer and sales pilot](docs/PILOT-MARKETING.md)
+
 POTIFY Shortcut Studio is a companion for designing, inspecting, validating, and exporting iOS Shortcuts. This repository is a public, sanitized developer edition of the owner-reviewed source; it is not a production deployment or an Apple product.
 
 ## What is included
@@ -37,6 +39,19 @@ pnpm --filter @workspace/shortcuts-assistant build
 - Generated Shortcut export is described in the app as short-lived in-memory data; the wider learning subsystem uses the configured database. Review privacy and retention settings before operating a shared instance.
 
 For a local build, validation, and review workflow, see [docs/WHITEPAPER.md](docs/WHITEPAPER.md).
+
+## Try a fictional workflow
+
+Open [the synthetic intents](examples/synthetic-intents.json) and choose one routine. Compare its expected actions against the planner. The following checks run locally without an account, a database or a model provider after the workspace install.
+
+```sh
+pnpm --filter @workspace/api-server exec node --import=tsx --test \
+  src/lib/shortcuts/planner.test.ts src/lib/shortcuts/dataflow.test.ts \
+  src/lib/shortcuts/validation.test.ts
+pnpm --filter @workspace/shortcuts-assistant test
+```
+
+Those commands exercise 44 planner, dataflow and validation checks and nine visual-builder logic checks. The broader API suite also exercises consent, retention and training with PostgreSQL. For a disposable database run, create a fresh local `LEARNING_SUBJECT_SALT` for that run so consent and withdrawal can find the same fictional subject. The provider smoke test in `model-config.test.ts` makes a network request. [Reproduction details](docs/SOURCE-REVIEW.md)
 
 ## Safe examples and release notes
 
