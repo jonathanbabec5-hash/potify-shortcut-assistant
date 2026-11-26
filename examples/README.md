@@ -1,0 +1,1 @@
+# Synthetic examples,,`synthetic-intents.json` contains fictional intent descriptions for developer demos and docs. It contains no personal names, contact details, photos, exported property lists, real user shortcuts, or private payloads. These are prompt examples only; they do not include `.shortcut` files.,
