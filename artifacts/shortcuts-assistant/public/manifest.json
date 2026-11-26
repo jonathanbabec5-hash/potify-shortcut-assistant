@@ -1,0 +1,17 @@
+{
+  "name": "POTIFY Shortcut Studio",
+  "short_name": "Shortcut Studio",
+  "description": "POTIFY Shortcut Studio — design, validate, and export iOS Shortcuts with confidence.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a110a",
+  "theme_color": "#0a110a",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

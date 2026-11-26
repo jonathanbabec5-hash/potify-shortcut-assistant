@@ -1,0 +1,1479 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: API specification
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: shortcuts
+    description: Shortcuts assistant operations
+  - name: learning
+    description: Consent, feedback, and governed learning insights
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+  /shortcuts/actions:
+    get:
+      operationId: listShortcutsActions
+      tags: [shortcuts]
+      summary: List known Shortcuts actions
+      description: Returns the curated catalog of Shortcuts actions with parameter schemas and compatibility metadata.
+      responses:
+        "200":
+          description: Catalog of actions
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ShortcutsActionsCatalog"
+  /shortcuts/generate:
+    post:
+      operationId: generateShortcut
+      tags: [shortcuts]
+      summary: Generate a shortcut from a natural-language description
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ShortcutGenerateInput"
+      responses:
+        "200":
+          description: Generated shortcut with explanations and warnings
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ShortcutGenerateResponse"
+        "400":
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: Generated shortcut failed deterministic validation after retry
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationFailureResponse"
+  /shortcuts/validate:
+    post:
+      operationId: validateShortcut
+      tags: [shortcuts]
+      summary: Validate a shortcut for compatibility and logical issues
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ShortcutValidateInput"
+      responses:
+        "200":
+          description: Validation findings
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ShortcutValidateResponse"
+        "400":
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /shortcuts/explain:
+    post:
+      operationId: explainShortcut
+      tags: [shortcuts]
+      summary: Explain a shortcut in plain English
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ShortcutExplainInput"
+      responses:
+        "200":
+          description: Plain-English explanation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ShortcutExplainResponse"
+        "400":
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /shortcuts/repair:
+    post:
+      operationId: repairShortcut
+      tags: [shortcuts]
+      summary: Repair a shortcut based on validation findings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ShortcutRepairInput"
+      responses:
+        "200":
+          description: Repaired shortcut with changelog
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ShortcutRepairResponse"
+        "400":
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /shortcuts/suggest:
+    post:
+      operationId: suggestNextActions
+      tags: [shortcuts]
+      summary: Suggest next actions for a partial shortcut
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ShortcutSuggestInput"
+      responses:
+        "200":
+          description: Suggested next actions
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ShortcutSuggestResponse"
+        "400":
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /shortcuts/clarify:
+    post:
+      operationId: clarifyShortcut
+      tags: [shortcuts]
+      summary: Identify missing information before generating a shortcut
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ShortcutClarifyInput"
+      responses:
+        "200":
+          description: Clarification questions and partial plan
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ShortcutClarifyResponse"
+        "400":
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /shortcuts/plan:
+    post:
+      operationId: planShortcut
+      tags: [shortcuts]
+      summary: Produce a structured plan for a shortcut
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ShortcutPlanInput"
+      responses:
+        "200":
+          description: Structured shortcut plan
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ShortcutPlanResponse"
+        "400":
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /shortcuts/diagnose:
+    post:
+      operationId: diagnoseShortcut
+      tags: [shortcuts]
+      summary: Simulate execution and diagnose failures
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ShortcutDiagnoseInput"
+      responses:
+        "200":
+          description: Execution trace and diagnostics
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ShortcutDiagnoseResponse"
+        "400":
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /shortcuts/file:
+    post:
+      operationId: storeShortcutFile
+      tags: [shortcuts]
+      summary: Store a shortcut and receive a file id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ShortcutFileInput"
+      responses:
+        "200":
+          description: Stored shortcut file id
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ShortcutFileStored"
+        "400":
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /shortcuts/file/{id}:
+    get:
+      operationId: getShortcutFile
+      tags: [shortcuts]
+      summary: Download a generated .shortcut file
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Binary .shortcut file
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        "404":
+          description: File not found or expired
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /learning/consent:
+    get:
+      operationId: getConsent
+      tags: [learning]
+      summary: Read the current collection consent for a subject
+      parameters:
+        - name: subject
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Current consent state
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConsentState"
+    post:
+      operationId: setConsent
+      tags: [learning]
+      summary: Grant or change collection consent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConsentInput"
+      responses:
+        "200":
+          description: Updated consent state
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConsentState"
+        "400":
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /learning/consent/withdraw:
+    post:
+      operationId: withdrawConsent
+      tags: [learning]
+      summary: Withdraw consent and delete everything collected for the subject
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConsentSubject"
+      responses:
+        "200":
+          description: Withdrawal result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConsentWithdrawal"
+        "400":
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /learning/feedback:
+    post:
+      operationId: submitShortcutFeedback
+      tags: [learning]
+      summary: Report whether a generated shortcut actually worked
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ShortcutFeedbackInput"
+      responses:
+        "200":
+          description: Whether the feedback was retained
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FeedbackAck"
+        "400":
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /learning/insights:
+    get:
+      operationId: getLearningInsights
+      tags: [learning]
+      summary: Failure clusters and prioritised remediation work
+      responses:
+        "200":
+          description: Aggregate insight over collected examples
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LearningInsights"
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
+    ConsentScopeOption:
+      type: object
+      properties:
+        scope:
+          type: string
+        description:
+          type: string
+      required:
+        - scope
+        - description
+    ConsentState:
+      type: object
+      properties:
+        scope:
+          type: string
+        policyVersion:
+          type: string
+        grantedAt:
+          type: integer
+        expiresAt:
+          type: integer
+        active:
+          type: boolean
+        options:
+          type: array
+          items:
+            $ref: "#/components/schemas/ConsentScopeOption"
+      required:
+        - scope
+        - policyVersion
+        - active
+        - options
+    ConsentInput:
+      type: object
+      properties:
+        subject:
+          type: string
+        scope:
+          type: string
+      required:
+        - subject
+        - scope
+    ConsentSubject:
+      type: object
+      properties:
+        subject:
+          type: string
+      required:
+        - subject
+    ConsentWithdrawal:
+      type: object
+      properties:
+        scope:
+          type: string
+        interactionsPurged:
+          type: integer
+        outcomesPurged:
+          type: integer
+      required:
+        - scope
+        - interactionsPurged
+        - outcomesPurged
+    ShortcutFeedbackInput:
+      type: object
+      properties:
+        subject:
+          type: string
+        runId:
+          type: string
+        importConfirmed:
+          type: boolean
+        deviceRunSucceeded:
+          type: boolean
+        accepted:
+          type: boolean
+        acceptedShortcut:
+          $ref: "#/components/schemas/ShortcutPlist"
+          description: >-
+            The shortcut the user actually kept. The server derives the accepted
+            workflow hash from it; the plist itself is never stored.
+        edits:
+          type: array
+          description: Edits the user made before accepting. Keys only, never values.
+          maxItems: 200
+          items:
+            $ref: "#/components/schemas/UserEditEvent"
+      required:
+        - subject
+        - runId
+    UserEditEvent:
+      type: object
+      description: >-
+        One structural edit made in the Builder. Parameter *values* are never
+        transmitted or stored — only which key was touched. The server further
+        discards any actionIdentifier the catalog does not know and any
+        parameterKey that action does not declare, so neither field can be used
+        to smuggle free text into storage.
+      properties:
+        op:
+          type: string
+          enum: [add-action, remove-action, reorder-action, replace-action, edit-parameter]
+        index:
+          type: integer
+          minimum: 0
+          maximum: 999
+        actionIdentifier:
+          type: string
+          maxLength: 200
+        parameterKey:
+          type: string
+          maxLength: 100
+      required:
+        - op
+    FeedbackAck:
+      type: object
+      properties:
+        recorded:
+          type: boolean
+        reason:
+          type: string
+      required:
+        - recorded
+    FailureClusterSummary:
+      type: object
+      properties:
+        key:
+          type: string
+        stages:
+          type: array
+          items:
+            type: string
+        unknownIdentifiers:
+          type: array
+          items:
+            type: string
+        size:
+          type: integer
+        recordCount:
+          type: integer
+        meanQuality:
+          type: number
+        exemplar:
+          type: string
+      required:
+        - key
+        - stages
+        - unknownIdentifiers
+        - size
+        - recordCount
+        - meanQuality
+        - exemplar
+    LearningPriority:
+      type: object
+      properties:
+        clusterKey:
+          type: string
+        score:
+          type: number
+        affectedRuns:
+          type: integer
+        kind:
+          type: string
+        recommendation:
+          type: string
+      required:
+        - clusterKey
+        - score
+        - affectedRuns
+        - kind
+        - recommendation
+    LearningRecordTotals:
+      type: object
+      properties:
+        total:
+          type: integer
+        active:
+          type: integer
+        quarantined:
+          type: integer
+      required:
+        - total
+        - active
+        - quarantined
+    LearningInsights:
+      type: object
+      properties:
+        totals:
+          $ref: "#/components/schemas/LearningRecordTotals"
+        clusters:
+          type: array
+          items:
+            $ref: "#/components/schemas/FailureClusterSummary"
+        priorities:
+          type: array
+          items:
+            $ref: "#/components/schemas/LearningPriority"
+        evalCaseSuggestions:
+          type: array
+          items:
+            $ref: "#/components/schemas/LearningPriority"
+      required:
+        - totals
+        - clusters
+        - priorities
+        - evalCaseSuggestions
+    ShortcutsActionsCatalog:
+      type: object
+      properties:
+        version:
+          type: string
+        targetIosVersion:
+          type: string
+        actions:
+          type: array
+          items:
+            $ref: "#/components/schemas/ShortcutsActionCatalogEntry"
+      required:
+        - version
+        - targetIosVersion
+        - actions
+    ShortcutsActionCatalogEntry:
+      type: object
+      properties:
+        identifier:
+          type: string
+        displayName:
+          type: string
+        description:
+          type: string
+        minimumClientVersion:
+          type: integer
+        parameters:
+          $ref: "#/components/schemas/ActionParametersSpec"
+        permissions:
+          type: array
+          items:
+            type: string
+        knownIssues:
+          type: array
+          items:
+            type: string
+        tags:
+          type: array
+          items:
+            type: string
+        inputs:
+          type: array
+          items:
+            $ref: "#/components/schemas/ActionVariableSpec"
+        outputs:
+          type: array
+          items:
+            $ref: "#/components/schemas/ActionVariableSpec"
+        app:
+          $ref: "#/components/schemas/ActionAppSpec"
+        controlFlow:
+          $ref: "#/components/schemas/ActionControlFlowSpec"
+        deviceCompatibility:
+          $ref: "#/components/schemas/DeviceCompatibilitySpec"
+        deprecated:
+          type: boolean
+        deprecationReason:
+          type: string
+        alternativeIdentifiers:
+          type: array
+          items:
+            type: string
+      required:
+        - identifier
+        - displayName
+        - description
+        - minimumClientVersion
+        - parameters
+        - permissions
+        - knownIssues
+    ActionParametersSpec:
+      type: object
+      properties:
+        required:
+          type: array
+          items:
+            $ref: "#/components/schemas/ActionParameterSpec"
+        optional:
+          type: array
+          items:
+            $ref: "#/components/schemas/ActionParameterSpec"
+      required:
+        - required
+        - optional
+    ActionParameterSpec:
+      type: object
+      properties:
+        key:
+          type: string
+        displayName:
+          type: string
+        type:
+          type: string
+        items:
+          type: object
+        description:
+          type: string
+      required:
+        - key
+        - displayName
+        - type
+        - description
+    ActionVariableSpec:
+      type: object
+      properties:
+        key:
+          type: string
+        displayName:
+          type: string
+        type:
+          type: string
+        description:
+          type: string
+      required:
+        - key
+        - displayName
+        - type
+        - description
+    ActionAppSpec:
+      type: object
+      properties:
+        bundleIdentifier:
+          type: string
+        displayName:
+          type: string
+        required:
+          type: boolean
+        minimumAppVersion:
+          type: string
+        note:
+          type: string
+    ActionControlFlowSpec:
+      type: object
+      properties:
+        isGroup:
+          type: boolean
+        groupType:
+          type: string
+          enum: [if, choose-from-menu, repeat, otherwise, menu-item, end]
+        beginsGroup:
+          type: boolean
+        endsGroup:
+          type: boolean
+        requiresMatchingIdentifier:
+          type: boolean
+    DeviceCompatibilitySpec:
+      type: object
+      properties:
+        minimumIosVersion:
+          type: string
+        maximumIosVersion:
+          type: string
+        requiresLocation:
+          type: boolean
+        requiresInternet:
+          type: boolean
+        requiresCellular:
+          type: boolean
+        requiresBluetooth:
+          type: boolean
+        requiresNfc:
+          type: boolean
+        notes:
+          type: array
+          items:
+            type: string
+    ShortcutPlist:
+      type: object
+      properties:
+        WFWorkflowClientVersion:
+          type: string
+        WFWorkflowClientRelease:
+          type: string
+        WFWorkflowMinimumClientVersion:
+          type: integer
+        WFWorkflowMinimumClientVersionString:
+          type: string
+        WFWorkflowName:
+          type: string
+        WFWorkflowIcon:
+          type: object
+        WFWorkflowTypes:
+          type: array
+          items:
+            type: string
+        WFWorkflowInputContentItemClasses:
+          type: array
+          items:
+            type: string
+        WFWorkflowImportQuestions:
+          type: array
+          items:
+            type: object
+        WFWorkflowActions:
+          type: array
+          items:
+            $ref: "#/components/schemas/ShortcutAction"
+      required:
+        - WFWorkflowActions
+    ShortcutAction:
+      type: object
+      properties:
+        WFWorkflowActionIdentifier:
+          type: string
+        WFWorkflowActionParameters:
+          type: object
+        WFWorkflowActionClass:
+          type: string
+        WFWorkflowActionClassArguments:
+          type: object
+        GroupingIdentifier:
+          type: string
+        UUID:
+          type: string
+      required:
+        - WFWorkflowActionIdentifier
+        - WFWorkflowActionParameters
+    ShortcutGenerateInput:
+      type: object
+      properties:
+        description:
+          type: string
+          minLength: 1
+        targetIosVersion:
+          type: string
+        slots:
+          type: object
+          description: Optional user-supplied values for clarification slots.
+        subject:
+          type: string
+          description: >-
+            Optional anonymous client identifier. Hashed server-side into a
+            pseudonym and used only to look up this user's collection consent.
+            Omitting it means nothing about the run can be retained.
+        appVersion:
+          type: string
+          maxLength: 64
+          pattern: '^[A-Za-z0-9][A-Za-z0-9._+-]*$'
+          description: >-
+            Client build identifier, recorded as run provenance. Constrained to
+            a build-identifier shape and discarded server-side when it does not
+            match — it is provenance, not a free-text field.
+      required:
+        - description
+    ShortcutGenerateResponse:
+      type: object
+      properties:
+        runId:
+          type: string
+          description: >-
+            Identifies this generation run. Echo it back on feedback or repair
+            so those signals attach to the right example. It is a random id and
+            grants no access on its own — every lookup is additionally scoped to
+            the caller's own subject pseudonym.
+        id:
+          type: string
+          description: >
+            File store ID. INVARIANT: present iff completionStatus.satisfied === true.
+            completionStatus.satisfied reflects the full six-stage pipeline pass (IR
+            grounding, checklist seal, plist validation, and completion gate). Gate
+            import availability on completionStatus.satisfied only — do not check
+            checklistSatisfied separately.
+        shortcut:
+          $ref: "#/components/schemas/ShortcutPlist"
+        actions:
+          type: array
+          items:
+            $ref: "#/components/schemas/ActionExplanation"
+        warnings:
+          type: array
+          items:
+            $ref: "#/components/schemas/ValidationFinding"
+        minimumIosVersion:
+          type: string
+        explanation:
+          type: string
+        uncertainty:
+          type: array
+          items:
+            type: string
+        alternatives:
+          type: array
+          items:
+            $ref: "#/components/schemas/ShortcutAlternative"
+        completionStatus:
+          $ref: "#/components/schemas/CompletionResult"
+        checklistSatisfied:
+          type: boolean
+          description: >
+            True when the six-stage pipeline fully satisfied the locked checklist
+            and the plist passed all validation gates.
+        checklist:
+          type: array
+          items:
+            $ref: "#/components/schemas/IntentChecklistItem"
+          description: The locked intent checklist extracted in Stage 1.
+      required:
+        - shortcut
+        - actions
+        - warnings
+        - minimumIosVersion
+        - explanation
+        - uncertainty
+        - alternatives
+        - completionStatus
+        - checklistSatisfied
+        - checklist
+    IntentChecklistItem:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum: [condition, action, constraint]
+        description:
+          type: string
+        requiredActions:
+          type: array
+          items:
+            type: string
+        operand:
+          type: string
+        operator:
+          type: string
+        threshold:
+          type: string
+        needsClarification:
+          type: boolean
+        externalDomain:
+          type: boolean
+      required:
+        - id
+        - type
+        - description
+        - requiredActions
+    ShortcutAlternative:
+      type: object
+      properties:
+        label:
+          type: string
+        description:
+          type: string
+      required:
+        - label
+        - description
+    ActionExplanation:
+      type: object
+      properties:
+        actionIndex:
+          type: integer
+        identifier:
+          type: string
+        displayName:
+          type: string
+        explanation:
+          type: string
+        parameterSummary:
+          type: string
+      required:
+        - actionIndex
+        - identifier
+        - displayName
+        - explanation
+        - parameterSummary
+    CompletionStatus:
+      type: string
+      enum: [ready, incomplete, unsupported, validation-failed]
+    CompletionResult:
+      type: object
+      properties:
+        satisfied:
+          type: boolean
+          description: >
+            True only when status === 'ready'. Import must be blocked unless satisfied is true.
+        status:
+          $ref: "#/components/schemas/CompletionStatus"
+        missingCapabilities:
+          type: array
+          items:
+            type: string
+          description: Human-readable list of capabilities requested but not implemented.
+        unsupportedActions:
+          type: array
+          items:
+            type: string
+          description: Action identifiers in the request but absent from the catalog.
+        hollowActions:
+          type: array
+          items:
+            type: string
+          description: Comment-action identifiers that substituted for real capabilities.
+        blockingFindings:
+          type: array
+          items:
+            $ref: "#/components/schemas/ValidationFinding"
+          description: All findings that block import.
+      required:
+        - satisfied
+        - status
+        - missingCapabilities
+        - unsupportedActions
+        - hollowActions
+        - blockingFindings
+    ValidationFinding:
+      type: object
+      properties:
+        severity:
+          type: string
+          enum: [error, warning, info]
+        source:
+          type: string
+          enum: [schema, ai, completion, pipeline]
+        actionIndex:
+          type: integer
+        actionIdentifier:
+          type: string
+          description: Populated by the completion gate for Comment-substitution findings.
+        message:
+          type: string
+        suggestion:
+          type: string
+      required:
+        - severity
+        - source
+        - message
+    ValidationFailureResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        findings:
+          type: array
+          items:
+            $ref: "#/components/schemas/ValidationFinding"
+      required:
+        - error
+        - findings
+    ShortcutValidateInput:
+      type: object
+      properties:
+        shortcut:
+          $ref: "#/components/schemas/ShortcutPlist"
+        targetIosVersion:
+          type: string
+      required:
+        - shortcut
+    ShortcutValidateResponse:
+      type: object
+      properties:
+        findings:
+          type: array
+          items:
+            $ref: "#/components/schemas/ValidationFinding"
+        minimumIosVersion:
+          type: string
+        requiredPermissions:
+          type: array
+          items:
+            type: string
+        requiredDeviceFeatures:
+          type: array
+          items:
+            type: string
+        dataFlowSummary:
+          type: object
+          properties:
+            producedVariables:
+              type: integer
+            consumedVariables:
+              type: integer
+            unboundInputs:
+              type: integer
+            unreachableSteps:
+              type: array
+              items:
+                type: integer
+          required:
+            - producedVariables
+            - consumedVariables
+            - unboundInputs
+            - unreachableSteps
+        executionTrace:
+          type: array
+          items:
+            $ref: "#/components/schemas/ExecutionTraceStep"
+      required:
+        - findings
+        - minimumIosVersion
+        - requiredPermissions
+        - requiredDeviceFeatures
+        - dataFlowSummary
+        - executionTrace
+    ExecutionTraceStep:
+      type: object
+      properties:
+        step:
+          type: integer
+        action:
+          type: string
+        status:
+          type: string
+          enum: [ok, warn, fail]
+        notes:
+          type: array
+          items:
+            type: string
+      required:
+        - step
+        - action
+        - status
+        - notes
+    ShortcutExplainInput:
+      type: object
+      properties:
+        shortcut:
+          $ref: "#/components/schemas/ShortcutPlist"
+      required:
+        - shortcut
+    ShortcutExplainResponse:
+      type: object
+      properties:
+        steps:
+          type: array
+          items:
+            $ref: "#/components/schemas/ActionExplanation"
+        summary:
+          type: string
+        dataFlow:
+          type: string
+        compatibility:
+          type: string
+      required:
+        - steps
+        - summary
+        - dataFlow
+        - compatibility
+    ShortcutRepairInput:
+      type: object
+      properties:
+        shortcut:
+          $ref: "#/components/schemas/ShortcutPlist"
+        findings:
+          type: array
+          items:
+            $ref: "#/components/schemas/ValidationFinding"
+        targetIosVersion:
+          type: string
+        subject:
+          type: string
+          description: >-
+            Optional anonymous client identifier, same meaning as on generate.
+            Omitting it means nothing about the repair can be retained.
+        runId:
+          type: string
+          format: uuid
+          description: >-
+            The generation run this shortcut came from, if any. Supplying it
+            lets the repair be attached to that example as a repair step;
+            without it only the text-free repair outcome can be recorded.
+            Ignored unless it has the shape of an id this server issues.
+      required:
+        - shortcut
+        - findings
+    ShortcutRepairResponse:
+      type: object
+      properties:
+        shortcut:
+          $ref: "#/components/schemas/ShortcutPlist"
+        changelog:
+          type: array
+          items:
+            $ref: "#/components/schemas/RepairChange"
+        unresolved:
+          type: array
+          items:
+            type: string
+        alternatives:
+          type: array
+          items:
+            $ref: "#/components/schemas/ShortcutAlternative"
+      required:
+        - shortcut
+        - changelog
+        - unresolved
+        - alternatives
+    RepairChange:
+      type: object
+      properties:
+        actionIndex:
+          type: integer
+        changeType:
+          type: string
+          enum: [modified, removed, added]
+        description:
+          type: string
+      required:
+        - actionIndex
+        - changeType
+        - description
+    ShortcutFileInput:
+      type: object
+      properties:
+        shortcut:
+          $ref: "#/components/schemas/ShortcutPlist"
+      required:
+        - shortcut
+    ShortcutFileStored:
+      type: object
+      properties:
+        id:
+          type: string
+      required:
+        - id
+    ShortcutSuggestInput:
+      type: object
+      properties:
+        actions:
+          type: array
+          items:
+            $ref: "#/components/schemas/ShortcutAction"
+        context:
+          type: string
+      required:
+        - actions
+    ActionSuggestion:
+      type: object
+      properties:
+        identifier:
+          type: string
+        displayName:
+          type: string
+        rationale:
+          type: string
+        parameters:
+          type: object
+      required:
+        - identifier
+        - displayName
+        - rationale
+    ShortcutSuggestResponse:
+      type: object
+      properties:
+        suggestions:
+          type: array
+          items:
+            $ref: "#/components/schemas/ActionSuggestion"
+      required:
+        - suggestions
+    ShortcutClarifyInput:
+      type: object
+      properties:
+        description:
+          type: string
+          minLength: 1
+        targetIosVersion:
+          type: string
+      required:
+        - description
+    ShortcutClarifyQuestion:
+      type: object
+      properties:
+        slotKey:
+          type: string
+        displayName:
+          type: string
+        description:
+          type: string
+        type:
+          type: string
+          enum: [contact, text, number, boolean, choice, location, app, time, date, unknown]
+        enumeration:
+          type: array
+          items:
+            type: string
+      required:
+        - slotKey
+        - displayName
+        - description
+        - type
+    ShortcutClarifyResponse:
+      type: object
+      properties:
+        needed:
+          type: boolean
+        questions:
+          type: array
+          items:
+            $ref: "#/components/schemas/ShortcutClarifyQuestion"
+      required:
+        - needed
+        - questions
+    ShortcutPlanInput:
+      type: object
+      properties:
+        description:
+          type: string
+          minLength: 1
+        slots:
+          type: object
+        targetIosVersion:
+          type: string
+      required:
+        - description
+    ShortcutPlanStep:
+      type: object
+      properties:
+        stepIndex:
+          type: integer
+        actionIdentifier:
+          type: string
+        displayName:
+          type: string
+        intent:
+          type: string
+        parameterBindings:
+          type: array
+          items:
+            type: object
+        produces:
+          type: string
+      required:
+        - stepIndex
+        - actionIdentifier
+        - displayName
+        - intent
+        - parameterBindings
+    ShortcutPlanAlternative:
+      type: object
+      properties:
+        label:
+          type: string
+        plan:
+          type: array
+          items:
+            $ref: "#/components/schemas/ShortcutPlanStep"
+      required:
+        - label
+        - plan
+    ShortcutPlanSlot:
+      type: object
+      description: >
+        A detail the plan needs but does not have. The planner never substitutes a
+        literal for an unknown value, so each unresolved slot is reported here for
+        the user to fill in.
+      properties:
+        key:
+          type: string
+        displayName:
+          type: string
+        description:
+          type: string
+        type:
+          type: string
+          enum: [contact, text, number, boolean, choice, location, app, time, date, unknown]
+        enumeration:
+          type: array
+          items:
+            type: string
+        required:
+          type: boolean
+        source:
+          type: string
+          enum: [input, target, permission, device]
+      required:
+        - key
+        - displayName
+        - description
+        - type
+        - required
+        - source
+    ShortcutPlanResponse:
+      type: object
+      properties:
+        goal:
+          type: string
+        steps:
+          type: array
+          items:
+            $ref: "#/components/schemas/ShortcutPlanStep"
+        requiredSlots:
+          type: array
+          description: Details still needed from the user. Empty when the plan is fully resolved.
+          items:
+            $ref: "#/components/schemas/ShortcutPlanSlot"
+        requiredPermissions:
+          type: array
+          items:
+            type: string
+        minimumIosVersion:
+          type: string
+        confidence:
+          type: string
+          enum: [high, medium, low]
+        uncertainty:
+          type: array
+          items:
+            type: string
+        alternatives:
+          type: array
+          items:
+            $ref: "#/components/schemas/ShortcutPlanAlternative"
+      required:
+        - goal
+        - steps
+        - requiredSlots
+        - requiredPermissions
+        - minimumIosVersion
+        - confidence
+        - uncertainty
+        - alternatives
+    ShortcutDiagnoseInput:
+      type: object
+      properties:
+        shortcut:
+          $ref: "#/components/schemas/ShortcutPlist"
+        targetIosVersion:
+          type: string
+      required:
+        - shortcut
+    ShortcutDiagnoseTrace:
+      type: object
+      properties:
+        step:
+          type: integer
+        action:
+          type: string
+        status:
+          type: string
+          enum: [ok, warn, fail]
+        notes:
+          type: array
+          items:
+            type: string
+      required:
+        - step
+        - action
+        - status
+        - notes
+    ShortcutDiagnoseResponse:
+      type: object
+      properties:
+        trace:
+          type: array
+          items:
+            $ref: "#/components/schemas/ShortcutDiagnoseTrace"
+        producedVariables:
+          type: integer
+        consumedVariables:
+          type: integer
+        unboundInputs:
+          type: integer
+        unreachableSteps:
+          type: array
+          items:
+            type: integer
+        requiredDeviceFeatures:
+          type: array
+          items:
+            type: string
+      required:
+        - trace
+        - producedVariables
+        - consumedVariables
+        - unboundInputs
+        - unreachableSteps
+        - requiredDeviceFeatures

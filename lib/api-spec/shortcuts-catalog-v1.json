@@ -1,0 +1,1953 @@
+{
+  "version": "1.0.0",
+  "targetIosVersion": "26.0",
+  "actions": [
+    {
+      "identifier": "is.workflow.actions.comment",
+      "displayName": "Comment",
+      "description": "Adds a note to the shortcut that has no effect when run.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFCommentActionText",
+            "displayName": "Text",
+            "type": "string",
+            "description": "The comment text."
+          }
+        ],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.gettext",
+      "displayName": "Text",
+      "description": "Outputs the text you specify.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFTextActionText",
+            "displayName": "Text",
+            "type": "string",
+            "description": "The text to output."
+          }
+        ],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.showresult",
+      "displayName": "Show Result",
+      "description": "Displays the result in an alert or notification.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFTextActionText",
+            "displayName": "Text",
+            "type": "string",
+            "description": "The text to show."
+          }
+        ],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.notification",
+      "displayName": "Show Notification",
+      "description": "Shows a local notification with the specified title and body.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFNotificationActionTitle",
+            "displayName": "Title",
+            "type": "string",
+            "description": "The notification title."
+          }
+        ],
+        "optional": [
+          {
+            "key": "WFNotificationActionBody",
+            "displayName": "Body",
+            "type": "string",
+            "description": "The notification body text."
+          }
+        ]
+      },
+      "permissions": ["notification"],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.alert",
+      "displayName": "Show Alert",
+      "description": "Displays an alert with a title, message, and buttons.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFAlertActionTitle",
+            "displayName": "Title",
+            "type": "string",
+            "description": "The alert title."
+          }
+        ],
+        "optional": [
+          {
+            "key": "WFAlertActionMessage",
+            "displayName": "Message",
+            "type": "string",
+            "description": "The alert message."
+          }
+        ]
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.openapp",
+      "displayName": "Open App",
+      "description": "Opens the specified app.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFAppIdentifier",
+            "displayName": "App Identifier",
+            "type": "string",
+            "description": "The bundle identifier of the app to open."
+          }
+        ],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": [
+        "The bundle identifier must be installed on the target device."
+      ]
+    },
+    {
+      "identifier": "is.workflow.actions.url",
+      "displayName": "URL",
+      "description": "Passes a URL to the next action.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFURLActionURL",
+            "displayName": "URL",
+            "type": "string",
+            "description": "The URL string."
+          }
+        ],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.safari.openurl",
+      "displayName": "Open URLs",
+      "description": "Opens the input URLs in Safari.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.getclipboards",
+      "displayName": "Get Clipboard",
+      "description": "Passes the contents of the clipboard to the next action.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.setclipboard",
+      "displayName": "Copy to Clipboard",
+      "description": "Copies the input to the clipboard.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.sendmessage",
+      "displayName": "Send Message",
+      "description": "Sends a message via Messages.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFSendMessageActionRecipients",
+            "displayName": "Recipients",
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Phone numbers or email addresses of recipients."
+          }
+        ],
+        "optional": [
+          {
+            "key": "WFSendMessageContent",
+            "displayName": "Message",
+            "type": "string",
+            "description": "The message content."
+          }
+        ]
+      },
+      "permissions": ["messages"],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.sendemail",
+      "displayName": "Send Email",
+      "description": "Composes and sends an email.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFSendEmailActionToRecipients",
+            "displayName": "To",
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Email addresses of recipients."
+          }
+        ],
+        "optional": [
+          {
+            "key": "WFSendEmailActionSubject",
+            "displayName": "Subject",
+            "type": "string",
+            "description": "The email subject."
+          },
+          {
+            "key": "WFSendEmailActionMessage",
+            "displayName": "Body",
+            "type": "string",
+            "description": "The email body."
+          }
+        ]
+      },
+      "permissions": ["email"],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.dictionary",
+      "displayName": "Dictionary",
+      "description": "Creates a dictionary with the specified key-value pairs.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFItems",
+            "displayName": "Items",
+            "type": "dictionary",
+            "description": "The key-value pairs for the dictionary."
+          }
+        ],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.getvalueforkey",
+      "displayName": "Get Dictionary Value",
+      "description": "Gets the value for a specified key from a dictionary.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFDictionaryKey",
+            "displayName": "Key",
+            "type": "string",
+            "description": "The dictionary key to read."
+          }
+        ],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.setvalueforkey",
+      "displayName": "Set Dictionary Value",
+      "description": "Sets a value for a key in a dictionary.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFDictionaryKey",
+            "displayName": "Key",
+            "type": "string",
+            "description": "The dictionary key to set."
+          }
+        ],
+        "optional": [
+          {
+            "key": "WFDictionaryValue",
+            "displayName": "Value",
+            "type": "string",
+            "description": "The value to set."
+          }
+        ]
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.getmyshortcuts",
+      "displayName": "Get My Shortcuts",
+      "description": "Passes the user's shortcuts to the next action.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.runshortcut",
+      "displayName": "Run Shortcut",
+      "description": "Runs another shortcut from within this shortcut.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFShortcutName",
+            "displayName": "Shortcut",
+            "type": "string",
+            "description": "The name of the shortcut to run."
+          }
+        ],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": [
+        "The referenced shortcut must exist on the target device."
+      ]
+    },
+    {
+      "identifier": "is.workflow.actions.getvariable",
+      "displayName": "Get Variable",
+      "description": "Passes the value of the specified variable to the next action.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFVariable",
+            "displayName": "Variable",
+            "type": "variable",
+            "description": "The variable to retrieve."
+          }
+        ],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.setvariable",
+      "displayName": "Set Variable",
+      "description": "Sets a variable to the input value.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFVariableName",
+            "displayName": "Variable Name",
+            "type": "string",
+            "description": "The name of the variable to set."
+          }
+        ],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.appendvariable",
+      "displayName": "Add to Variable",
+      "description": "Appends the input to a variable.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFVariableName",
+            "displayName": "Variable Name",
+            "type": "string",
+            "description": "The name of the variable to append to."
+          }
+        ],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.ask",
+      "displayName": "Ask for Input",
+      "description": "Prompts the user to enter text, a number, a URL, or a date.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFAskActionPrompt",
+            "displayName": "Prompt",
+            "type": "string",
+            "description": "The prompt shown to the user."
+          }
+        ],
+        "optional": [
+          {
+            "key": "WFAskActionDefaultAnswer",
+            "displayName": "Default Answer",
+            "type": "string",
+            "description": "Default value pre-filled in the prompt."
+          },
+          {
+            "key": "WFAskActionType",
+            "displayName": "Input Type",
+            "type": "string",
+            "description": "Text, Number, URL, or Date."
+          }
+        ]
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.choosefrommenu",
+      "displayName": "Choose from Menu",
+      "description": "Presents a menu and runs different actions based on the user's choice.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFMenuPrompt",
+            "displayName": "Prompt",
+            "type": "string",
+            "description": "The menu prompt text."
+          },
+          {
+            "key": "WFMenuItems",
+            "displayName": "Menu Items",
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "The list of menu choices."
+          }
+        ],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.choosefromlist",
+      "displayName": "Choose from List",
+      "description": "Presents a list of items from the input and passes the selected item onward.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": [
+          {
+            "key": "WFChooseFromListActionPrompt",
+            "displayName": "Prompt",
+            "type": "string",
+            "description": "The prompt shown to the user."
+          }
+        ]
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.conditional",
+      "displayName": "If",
+      "description": "Tests a condition and runs different actions based on the result.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFCondition",
+            "displayName": "Condition",
+            "type": "number",
+            "description": "The condition index (see Shortcuts docs for condition values)."
+          }
+        ],
+        "optional": [
+          {
+            "key": "WFInput",
+            "displayName": "Input",
+            "type": "variable",
+            "description": "The value to test."
+          }
+        ]
+      },
+      "permissions": [],
+      "knownIssues": [
+        "Requires matching GroupingIdentifier on grouped actions."
+      ]
+    },
+    {
+      "identifier": "is.workflow.actions.repeat.count",
+      "displayName": "Repeat",
+      "description": "Repeats a set of actions a specified number of times.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFRepeatCount",
+            "displayName": "Count",
+            "type": "number",
+            "description": "Number of times to repeat."
+          }
+        ],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": [
+        "Requires matching GroupingIdentifier on grouped actions."
+      ]
+    },
+    {
+      "identifier": "is.workflow.actions.repeat.each",
+      "displayName": "Repeat with Each",
+      "description": "Repeats a set of actions for each item in the input.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": [
+        "Requires matching GroupingIdentifier on grouped actions."
+      ]
+    },
+    {
+      "identifier": "is.workflow.actions.getbatterylevel",
+      "displayName": "Get Battery Level",
+      "description": "Passes the current battery level as a percentage.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.getdevicedetails",
+      "displayName": "Get Device Details",
+      "description": "Returns details about the device.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFGetDeviceDetailActionMode",
+            "displayName": "Detail",
+            "type": "string",
+            "description": "The device detail to retrieve."
+          }
+        ],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.getcurrentweather",
+      "displayName": "Get Current Weather",
+      "description": "Returns the current weather at the specified location.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": [
+          {
+            "key": "WFWeatherLocation",
+            "displayName": "Location",
+            "type": "string",
+            "description": "Location for weather lookup."
+          }
+        ]
+      },
+      "permissions": ["location"],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.getupcomingevents",
+      "displayName": "Get Upcoming Events",
+      "description": "Returns upcoming calendar events.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": [
+          {
+            "key": "WFCalendarFilterCalendar",
+            "displayName": "Calendar",
+            "type": "string",
+            "description": "Calendar to read events from."
+          }
+        ]
+      },
+      "permissions": ["calendar"],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.getupcomingreminders",
+      "displayName": "Get Upcoming Reminders",
+      "description": "Returns upcoming reminders.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": [
+          {
+            "key": "WFRemindersListFilter",
+            "displayName": "List",
+            "type": "string",
+            "description": "Reminders list to read from."
+          }
+        ]
+      },
+      "permissions": ["reminders"],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.addreminder",
+      "displayName": "Add Reminder",
+      "description": "Adds a new reminder to the specified list.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFReminderTitle",
+            "displayName": "Title",
+            "type": "string",
+            "description": "The reminder title."
+          }
+        ],
+        "optional": [
+          {
+            "key": "WFReminderNotes",
+            "displayName": "Notes",
+            "type": "string",
+            "description": "Additional notes for the reminder."
+          }
+        ]
+      },
+      "permissions": ["reminders"],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.setfocusmode",
+      "displayName": "Set Focus",
+      "description": "Sets or turns off a Focus mode.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFFocusMode",
+            "displayName": "Focus Mode",
+            "type": "string",
+            "description": "The Focus mode to set."
+          }
+        ],
+        "optional": []
+      },
+      "permissions": ["focus"],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.setbrightness",
+      "displayName": "Set Brightness",
+      "description": "Sets the display brightness to the specified percentage.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFBrightness",
+            "displayName": "Brightness",
+            "type": "number",
+            "description": "Brightness percentage from 0 to 100."
+          }
+        ],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.setvolume",
+      "displayName": "Set Volume",
+      "description": "Sets the system volume to the specified percentage.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFVolume",
+            "displayName": "Volume",
+            "type": "number",
+            "description": "Volume percentage from 0 to 100."
+          }
+        ],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.wifi.set",
+      "displayName": "Set Wi-Fi",
+      "description": "Turns Wi-Fi on or off.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFWiFiState",
+            "displayName": "State",
+            "type": "boolean",
+            "description": "True to turn on Wi-Fi, false to turn off."
+          }
+        ],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.bluetooth.set",
+      "displayName": "Set Bluetooth",
+      "description": "Turns Bluetooth on or off.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFBluetoothState",
+            "displayName": "State",
+            "type": "boolean",
+            "description": "True to turn on Bluetooth, false to turn off."
+          }
+        ],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.cellular.set",
+      "displayName": "Set Cellular Data",
+      "description": "Turns cellular data on or off.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFCellularDataState",
+            "displayName": "State",
+            "type": "boolean",
+            "description": "True to turn on cellular data, false to turn off."
+          }
+        ],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.airplanemode.set",
+      "displayName": "Set Airplane Mode",
+      "description": "Turns Airplane Mode on or off.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFAirplaneModeState",
+            "displayName": "State",
+            "type": "boolean",
+            "description": "True to turn on Airplane Mode, false to turn off."
+          }
+        ],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.flashlight",
+      "displayName": "Set Flashlight",
+      "description": "Turns the flashlight on or off.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFFlashlightSetting",
+            "displayName": "Setting",
+            "type": "number",
+            "description": "0 = off, 1 = on, 2 = toggle."
+          }
+        ],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.lowpowermode.set",
+      "displayName": "Set Low Power Mode",
+      "description": "Turns Low Power Mode on or off.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFLowPowerModeState",
+            "displayName": "State",
+            "type": "boolean",
+            "description": "True to turn on, false to turn off."
+          }
+        ],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.takephoto",
+      "displayName": "Take Photo",
+      "description": "Takes a photo using the camera.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": [
+          {
+            "key": "WFPhotoCameraCaptureSetting",
+            "displayName": "Camera",
+            "type": "string",
+            "description": "Front or Back camera."
+          }
+        ]
+      },
+      "permissions": ["camera"],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.selectphoto",
+      "displayName": "Select Photos",
+      "description": "Prompts the user to select photos from the photo library.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": [
+          {
+            "key": "WFSelectPhotosActionSelectMultiplePhotos",
+            "displayName": "Select Multiple",
+            "type": "boolean",
+            "description": "Allow selecting multiple photos."
+          }
+        ]
+      },
+      "permissions": ["photos"],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.getlatestphoto",
+      "displayName": "Get Latest Photos",
+      "description": "Gets the most recent photos from the photo library.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": [
+          {
+            "key": "WFGetLatestPhotosCount",
+            "displayName": "Count",
+            "type": "number",
+            "description": "Number of photos to retrieve."
+          }
+        ]
+      },
+      "permissions": ["photos"],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.getlatestvideo",
+      "displayName": "Get Latest Videos",
+      "description": "Gets the most recent videos from the photo library.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": [
+          {
+            "key": "WFGetLatestVideosCount",
+            "displayName": "Count",
+            "type": "number",
+            "description": "Number of videos to retrieve."
+          }
+        ]
+      },
+      "permissions": ["photos"],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.getlatestscreenshot",
+      "displayName": "Get Latest Screenshot",
+      "description": "Gets the most recent screenshot from the photo library.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": []
+      },
+      "permissions": ["photos"],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.makeimagefrompdf",
+      "displayName": "Make Image from PDF",
+      "description": "Converts a PDF page to an image.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.getlocation",
+      "displayName": "Get Current Location",
+      "description": "Returns the current geographic location.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": []
+      },
+      "permissions": ["location"],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.gettraveltime",
+      "displayName": "Get Travel Time",
+      "description": "Returns the travel time between two locations.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFDestination",
+            "displayName": "Destination",
+            "type": "string",
+            "description": "Destination location or address."
+          }
+        ],
+        "optional": [
+          {
+            "key": "WFOrigin",
+            "displayName": "Origin",
+            "type": "string",
+            "description": "Starting location or address."
+          }
+        ]
+      },
+      "permissions": ["location"],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.getmapslink",
+      "displayName": "Get Maps Link",
+      "description": "Returns a Maps URL for the input location.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": []
+      },
+      "permissions": ["location"],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.getcontact",
+      "displayName": "Get Contact",
+      "description": "Returns the contact matching the input.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": [
+          {
+            "key": "WFContact",
+            "displayName": "Contact",
+            "type": "string",
+            "description": "Contact name or identifier."
+          }
+        ]
+      },
+      "permissions": ["contacts"],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.getcontacts",
+      "displayName": "Get Contacts",
+      "description": "Returns contacts from the address book.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": [
+          {
+            "key": "WFContactGroup",
+            "displayName": "Group",
+            "type": "string",
+            "description": "Contacts group to filter by."
+          }
+        ]
+      },
+      "permissions": ["contacts"],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.gettimebetweendates",
+      "displayName": "Get Time Between Dates",
+      "description": "Calculates the time difference between two dates.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": [
+          {
+            "key": "WFTimeUntilFromDate",
+            "displayName": "From Date",
+            "type": "string",
+            "description": "Starting date."
+          },
+          {
+            "key": "WFTimeUntilToDate",
+            "displayName": "To Date",
+            "type": "string",
+            "description": "Ending date."
+          }
+        ]
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.format.date",
+      "displayName": "Format Date",
+      "description": "Formats a date into a text string.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": [
+          {
+            "key": "WFDateFormatStyle",
+            "displayName": "Format Style",
+            "type": "string",
+            "description": "Short, Medium, Long, Full, or Custom."
+          }
+        ]
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.gettime",
+      "displayName": "Date",
+      "description": "Passes the current date and time.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.gethtmlfromrichtext",
+      "displayName": "Make HTML from Rich Text",
+      "description": "Converts rich text to HTML.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.getrichtextfromhtml",
+      "displayName": "Make Rich Text from HTML",
+      "description": "Converts HTML to rich text.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.getmarkdownfromrichtext",
+      "displayName": "Make Markdown from Rich Text",
+      "description": "Converts rich text to Markdown.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.gettextfromimage",
+      "displayName": "Extract Text from Image",
+      "description": "Runs OCR on the input image.",
+      "minimumClientVersion": 1500,
+      "parameters": {
+        "required": [],
+        "optional": []
+      },
+      "permissions": ["photos"],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.detectlanguage",
+      "displayName": "Detect Language",
+      "description": "Detects the language of the input text.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.detecttext",
+      "displayName": "Get Text from Input",
+      "description": "Converts the input to text.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.speaktext",
+      "displayName": "Speak Text",
+      "description": "Speaks the input text using the device voice.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": [
+          {
+            "key": "WFSpeakTextRate",
+            "displayName": "Rate",
+            "type": "number",
+            "description": "Speech rate."
+          },
+          {
+            "key": "WFSpeakTextLanguage",
+            "displayName": "Language",
+            "type": "string",
+            "description": "Language to speak in."
+          }
+        ]
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.getwebpage",
+      "displayName": "Get Webpage",
+      "description": "Fetches the content of a webpage.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFURLActionURL",
+            "displayName": "URL",
+            "type": "string",
+            "description": "The URL to fetch."
+          }
+        ],
+        "optional": []
+      },
+      "permissions": ["network"],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.gethtmlfromurl",
+      "displayName": "Get HTML from URL",
+      "description": "Fetches the HTML content of a webpage.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFURLActionURL",
+            "displayName": "URL",
+            "type": "string",
+            "description": "The URL to fetch."
+          }
+        ],
+        "optional": []
+      },
+      "permissions": ["network"],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.getheadingsfromarticle",
+      "displayName": "Get Article from Webpage",
+      "description": "Extracts the article content from a webpage.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": []
+      },
+      "permissions": ["network"],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.rss",
+      "displayName": "Get RSS Feeds",
+      "description": "Returns articles from an RSS feed.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFRSSFeedURLs",
+            "displayName": "URLs",
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "RSS feed URLs."
+          }
+        ],
+        "optional": []
+      },
+      "permissions": ["network"],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.gethtmlfromurl",
+      "displayName": "Get Contents of URL",
+      "description": "Makes an HTTP request to a URL.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFURLActionURL",
+            "displayName": "URL",
+            "type": "string",
+            "description": "The URL to request."
+          }
+        ],
+        "optional": [
+          {
+            "key": "WFHTTPMethod",
+            "displayName": "Method",
+            "type": "string",
+            "description": "HTTP method: GET, POST, PUT, etc."
+          }
+        ]
+      },
+      "permissions": ["network"],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.base64encode",
+      "displayName": "Base64 Encode",
+      "description": "Encodes the input using Base64.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": [
+          {
+            "key": "WFBase64LineBreakMode",
+            "displayName": "Line Breaks",
+            "type": "number",
+            "description": "Line break mode."
+          }
+        ]
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.hash",
+      "displayName": "Hash",
+      "description": "Generates a hash of the input.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": [
+          {
+            "key": "WFHashType",
+            "displayName": "Hash Type",
+            "type": "string",
+            "description": "MD5, SHA1, SHA256, etc."
+          }
+        ]
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.urlencode",
+      "displayName": "URL Encode",
+      "description": "Encodes the input string for use in a URL.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.calculate",
+      "displayName": "Calculate",
+      "description": "Performs a mathematical operation on the input.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFMathOperation",
+            "displayName": "Operation",
+            "type": "string",
+            "description": "Add, Subtract, Multiply, Divide, etc."
+          }
+        ],
+        "optional": [
+          {
+            "key": "WFMathOperand",
+            "displayName": "Operand",
+            "type": "number",
+            "description": "The operand value."
+          }
+        ]
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.number",
+      "displayName": "Number",
+      "description": "Passes the specified number to the next action.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFNumberActionNumber",
+            "displayName": "Number",
+            "type": "number",
+            "description": "The number value."
+          }
+        ],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.randomnumber",
+      "displayName": "Random Number",
+      "description": "Generates a random number within a range.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFRandomNumberMinimum",
+            "displayName": "Minimum",
+            "type": "number",
+            "description": "Lower bound."
+          },
+          {
+            "key": "WFRandomNumberMaximum",
+            "displayName": "Maximum",
+            "type": "number",
+            "description": "Upper bound."
+          }
+        ],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.round",
+      "displayName": "Round Number",
+      "description": "Rounds a number to the specified precision.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": [
+          {
+            "key": "WFRoundToValue",
+            "displayName": "Decimal Places",
+            "type": "number",
+            "description": "Number of decimal places."
+          }
+        ]
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.count",
+      "displayName": "Count",
+      "description": "Counts the number of items in the input.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": [
+          {
+            "key": "WFCountType",
+            "displayName": "Count Type",
+            "type": "string",
+            "description": "Items, Characters, Words, or Lines."
+          }
+        ]
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.splittext",
+      "displayName": "Split Text",
+      "description": "Splits the input text by a delimiter.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": [
+          {
+            "key": "WFTextSeparator",
+            "displayName": "Separator",
+            "type": "string",
+            "description": "Delimiter to split by."
+          }
+        ]
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.combinetext",
+      "displayName": "Combine Text",
+      "description": "Joins input text items with a delimiter.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": [
+          {
+            "key": "WFTextCustomSeparator",
+            "displayName": "Separator",
+            "type": "string",
+            "description": "Delimiter to join with."
+          }
+        ]
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.changecase",
+      "displayName": "Change Case",
+      "description": "Changes the case of the input text.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": [
+          {
+            "key": "WFCaseType",
+            "displayName": "Case Type",
+            "type": "string",
+            "description": "Uppercase, Lowercase, or Capitalized."
+          }
+        ]
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.replace",
+      "displayName": "Replace Text",
+      "description": "Replaces occurrences of a string in the input text.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFReplaceTextString",
+            "displayName": "Find",
+            "type": "string",
+            "description": "The text to find."
+          }
+        ],
+        "optional": [
+          {
+            "key": "WFReplaceTextReplacement",
+            "displayName": "Replace",
+            "type": "string",
+            "description": "The replacement text."
+          }
+        ]
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.matchtext",
+      "displayName": "Match Text",
+      "description": "Matches the input text against a regular expression.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFMatchTextPattern",
+            "displayName": "Pattern",
+            "type": "string",
+            "description": "Regular expression pattern."
+          }
+        ],
+        "optional": [
+          {
+            "key": "WFMatchTextCaseSensitive",
+            "displayName": "Case Sensitive",
+            "type": "boolean",
+            "description": "Whether matching is case-sensitive."
+          }
+        ]
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.getnameofemoji",
+      "displayName": "Get Name of Emoji",
+      "description": "Returns the name of the input emoji.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.gettextfromimage",
+      "displayName": "Extract Text from Image",
+      "description": "Runs OCR on the input image.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": []
+      },
+      "permissions": ["photos"],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.gettextfrompdf",
+      "displayName": "Extract Text from PDF",
+      "description": "Extracts text from the input PDF.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.getfile",
+      "displayName": "Get File",
+      "description": "Gets a file from iCloud Drive or local storage.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFGetFilePath",
+            "displayName": "Path",
+            "type": "string",
+            "description": "The file path."
+          }
+        ],
+        "optional": [
+          {
+            "key": "WFGetFileErrorIfNotFound",
+            "displayName": "Error If Not Found",
+            "type": "boolean",
+            "description": "Stop if the file doesn't exist."
+          }
+        ]
+      },
+      "permissions": ["files"],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.savefile",
+      "displayName": "Save File",
+      "description": "Saves the input to a file in iCloud Drive or local storage.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": [
+          {
+            "key": "WFSaveFileDestinationPath",
+            "displayName": "Path",
+            "type": "string",
+            "description": "Destination path for the file."
+          }
+        ]
+      },
+      "permissions": ["files"],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.createfolder",
+      "displayName": "Create Folder",
+      "description": "Creates a folder in iCloud Drive or local storage.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFCreateFolderPath",
+            "displayName": "Path",
+            "type": "string",
+            "description": "Path of the folder to create."
+          }
+        ],
+        "optional": []
+      },
+      "permissions": ["files"],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.deletefiles",
+      "displayName": "Delete Files",
+      "description": "Deletes the input files.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": [
+          {
+            "key": "WFDeleteFilesConfirmation",
+            "displayName": "Confirm Before Deleting",
+            "type": "boolean",
+            "description": "Show confirmation before deleting."
+          }
+        ]
+      },
+      "permissions": ["files"],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.play.sound",
+      "displayName": "Play Sound",
+      "description": "Plays the input audio file.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.pausemusic",
+      "displayName": "Pause Music",
+      "description": "Pauses the currently playing music.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": []
+      },
+      "permissions": ["media"],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.playmusic",
+      "displayName": "Play Music",
+      "description": "Begins playing music from the Music app.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": [
+          {
+            "key": "WFPlayMusicActionContext",
+            "displayName": "Context",
+            "type": "string",
+            "description": "Music to play."
+          }
+        ]
+      },
+      "permissions": ["media"],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.showsoundrecognition",
+      "displayName": "Sound Recognition",
+      "description": "Listens for a specific sound.",
+      "minimumClientVersion": 1400,
+      "parameters": {
+        "required": [],
+        "optional": [
+          {
+            "key": "WFSoundRecognitionTypes",
+            "displayName": "Sounds",
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Sounds to listen for."
+          }
+        ]
+      },
+      "permissions": ["microphone"],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.starttimer",
+      "displayName": "Start Timer",
+      "description": "Starts a timer in the Clock app.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFTimerDuration",
+            "displayName": "Duration",
+            "type": "number",
+            "description": "Timer duration in seconds."
+          }
+        ],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.alarm.create",
+      "displayName": "Create Alarm",
+      "description": "Creates a new alarm in the Clock app.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFAlarmTime",
+            "displayName": "Time",
+            "type": "string",
+            "description": "Alarm time."
+          }
+        ],
+        "optional": [
+          {
+            "key": "WFAlarmLabel",
+            "displayName": "Label",
+            "type": "string",
+            "description": "Alarm label."
+          }
+        ]
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.calendar.create",
+      "displayName": "Add Event",
+      "description": "Adds a calendar event.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFCalendarEventTitle",
+            "displayName": "Title",
+            "type": "string",
+            "description": "Event title."
+          }
+        ],
+        "optional": [
+          {
+            "key": "WFCalendarEventStartDate",
+            "displayName": "Start Date",
+            "type": "string",
+            "description": "Event start date."
+          },
+          {
+            "key": "WFCalendarEventEndDate",
+            "displayName": "End Date",
+            "type": "string",
+            "description": "Event end date."
+          }
+        ]
+      },
+      "permissions": ["calendar"],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.notes.create",
+      "displayName": "Create Note",
+      "description": "Creates a new note in the Notes app.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFNoteTitle",
+            "displayName": "Title",
+            "type": "string",
+            "description": "Note title."
+          }
+        ],
+        "optional": [
+          {
+            "key": "WFNoteContent",
+            "displayName": "Body",
+            "type": "string",
+            "description": "Note body."
+          }
+        ]
+      },
+      "permissions": ["notes"],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.notes.append",
+      "displayName": "Append to Note",
+      "description": "Appends text to an existing note.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFNote",
+            "displayName": "Note",
+            "type": "string",
+            "description": "Note to append to."
+          }
+        ],
+        "optional": [
+          {
+            "key": "WFNoteContent",
+            "displayName": "Content",
+            "type": "string",
+            "description": "Content to append."
+          }
+        ]
+      },
+      "permissions": ["notes"],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.speechtolanguage",
+      "displayName": "Dictate Text",
+      "description": "Dictates text using the microphone.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": [
+          {
+            "key": "WFSpeechToLanguageActionLanguage",
+            "displayName": "Language",
+            "type": "string",
+            "description": "Language to dictate in."
+          }
+        ]
+      },
+      "permissions": ["microphone"],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.shazam",
+      "displayName": "Shazam It",
+      "description": "Identifies the current song playing.",
+      "minimumClientVersion": 1400,
+      "parameters": {
+        "required": [],
+        "optional": []
+      },
+      "permissions": ["microphone"],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.getdistance",
+      "displayName": "Get Distance",
+      "description": "Gets the distance between the current location and a destination, using walking, driving, or transit directions.",
+      "minimumClientVersion": 900,
+      "parameters": {
+        "required": [
+          {
+            "key": "WFGetDistanceActionInput",
+            "displayName": "Location",
+            "type": "string",
+            "description": "The destination address or place name to measure distance to."
+          }
+        ],
+        "optional": [
+          {
+            "key": "WFGetDistanceActionMode",
+            "displayName": "Travel Mode",
+            "type": "string",
+            "description": "The travel mode: 'Walking', 'Driving', or 'Transit'. Defaults to Driving.",
+            "enumeration": ["Walking", "Driving", "Transit"]
+          }
+        ]
+      },
+      "permissions": ["location"],
+      "knownIssues": [
+        "Requires location services to be enabled and the Shortcuts app to have location permission.",
+        "Transit availability depends on the region and Apple Maps data."
+      ]
+    },
+    {
+      "identifier": "is.workflow.actions.date",
+      "displayName": "Get Current Date",
+      "description": "Passes the current date and time to the next action.",
+      "minimumClientVersion": 700,
+      "parameters": {
+        "required": [],
+        "optional": []
+      },
+      "permissions": [],
+      "knownIssues": []
+    },
+    {
+      "identifier": "is.workflow.actions.getsunrisesunset",
+      "displayName": "Get Sunrise and Sunset",
+      "description": "Returns the sunrise and sunset times for a given location and date. Can be compared against the current time to determine if it is before sunrise, after sunset, or during daylight hours.",
+      "minimumClientVersion": 900,
+      "parameters": {
+        "required": [],
+        "optional": [
+          {
+            "key": "WFSunriseSunsetActionCity",
+            "displayName": "Location",
+            "type": "string",
+            "description": "The city or location to get sunrise/sunset times for. Defaults to the device's current location."
+          },
+          {
+            "key": "WFSunriseSunsetActionDate",
+            "displayName": "Date",
+            "type": "string",
+            "description": "The date to get sunrise/sunset times for. Defaults to today."
+          },
+          {
+            "key": "WFSunriseSunsetActionType",
+            "displayName": "Type",
+            "type": "string",
+            "description": "'Sunrise' or 'Sunset'. Specifies which time to return.",
+            "enumeration": ["Sunrise", "Sunset"]
+          }
+        ]
+      },
+      "permissions": ["location"],
+      "knownIssues": [
+        "Requires location permission when no explicit location is provided.",
+        "Returns a Date value that can be compared with the current time using an If action."
+      ]
+    }
+  ]
+}
