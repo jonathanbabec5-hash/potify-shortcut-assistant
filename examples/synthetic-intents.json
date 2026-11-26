@@ -1,0 +1,20 @@
+{
+  "notice": "Fictional prompts only; no real Shortcut files or user payloads.",
+  "examples": [
+    {
+      "id": "demo-notification",
+      "prompt": "Show a notification titled Demo ready.",
+      "expectedBehavior": "Build only when the action catalog and required fields support it."
+    },
+    {
+      "id": "clarify-missing-fields",
+      "prompt": "Send a message.",
+      "expectedBehavior": "Ask for the recipient and message body; do not invent either."
+    },
+    {
+      "id": "unsupported-post",
+      "prompt": "Post a sample image to a social account.",
+      "expectedBehavior": "Refuse or clarify if the catalog has no supported action; no image or account is supplied."
+    }
+  ]
+}
