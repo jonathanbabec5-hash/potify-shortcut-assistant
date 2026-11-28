@@ -1,5 +1,13 @@
 # POTIFY Shortcut Assistant — developer edition
 
+## Find your way in
+
+| If you are… | Start here | Try this |
+| --- | --- | --- |
+| An iPhone shortcut maker | [See what is included](#what-is-included) | Explore the sanitized developer edition and action catalog. |
+| A developer | [Build the workspace](#build) | Follow the documented local build requirements. |
+| A reviewer | [Read the source boundary](docs/SOURCE-REVIEW.md) | See what the public edition includes and excludes. |
+
 [Full repository tree](docs/DIRECTORY.md) · [Technical whitepaper](docs/WHITEPAPER.md) · [Developer and sales pilot](docs/PILOT-MARKETING.md)
 
 POTIFY Shortcut Studio is a companion for designing, inspecting, validating, and exporting iOS Shortcuts. This repository is a public, sanitized developer edition of the owner-reviewed source; it is not a production deployment or an Apple product.
